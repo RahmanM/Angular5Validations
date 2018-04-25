@@ -1,0 +1,83 @@
+<form #form="ngForm">
+	<!-- NB: This ngModelGroup="loginModelGroup" is required, just ngModelGroup won't work! -->
+	<div ngModelGroup #loginModelGroup="ngModelGroup" ngModelGroup="loginModelGroup">
+    <h1>Template Validation</h1>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Email address</label>
+			<input required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" ngModel
+			 #email="ngModel" minlength="5" maxlength="25" placeholder="Enter email" (change)="logEmail(email)">
+
+			<div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+				<div *ngIf="email.errors.required">Email is required!</div>
+				<div *ngIf="email.errors.minlength">Min lenght for email is 5 characters!</div>
+				<div *ngIf="email.errors.maxlength">Max lenght for email is 25 characters!</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label>
+				<input required type="password" class="form-control" id="exampleInputPassword1" name="password" ngModel="password" placeholder="Password">
+			</div>
+
+		</div>
+
+		<div class="alert alert-warning">
+			<div>Login group is valid: {{loginModelGroup.valid | json}}</div>
+		</div>
+	</div>
+
+
+	<div #optionsModelGroup="ngModelGroup" ngModelGroup="optionsModelGroup">
+		<!-- <div class="form-group">
+			<label for="exampleFormControlSelect1">Example select</label>
+			<select name="option1" ngModel required class="form-control" id="exampleFormControlSelect1">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+		</div> -->
+		<!-- <div class="form-group">
+			<label for="exampleFormControlSelect2">Example multiple select</label>
+			<select name="option2" ngModel required multiple class="form-control" id="exampleFormControlSelect2">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+		</div> -->
+		<div class="form-group">
+			<label for="exampleFormControlTextarea1">Example textarea</label>
+			<textarea name="textarea" maxlength="50" required ngModel class="form-control" #textarea="ngModel" id="exampleFormControlTextarea1"
+			 rows="1"></textarea>
+
+			<div class="alert alert-danger" *ngIf="textarea.touched && !textarea.valid">
+				<div *ngIf="textarea.errors.required">Textarea is required!</div>
+				<div *ngIf="textarea.errors.maxlength">Max lenght for textarea is 25 characters!</div>
+			</div>
+		</div>
+
+		<div class="alert alert-warning">
+			<div>Option group is valid: {{optionsModelGroup.valid | json}}</div>
+		</div>
+
+	</div>
+
+	<div class="alert alert-info">
+		Form:
+		<p>
+			{{form.value | json}}
+		</p>
+
+		<p>
+			Is valid: {{form.valid | json}}
+		</p>
+	</div>
+
+	<button [disabled]="!form.valid" type="submit" (click)="logForm(email)" class="btn btn-primary">Submit
+  </button>
+
+</form>

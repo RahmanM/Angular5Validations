@@ -1,0 +1,22 @@
+<form [formGroup]="form" #formDir="ngForm">
+
+	<h1>Reactive Validation</h1>
+
+	<div class="form-group">
+			<label for="userName">User name:</label>
+			<input type="text" name="userName" class="form-control" formControlName="userName"  />
+
+      <!-- NB: checking if async property value is not set yet. so we can show spinner etc-->
+      <div *ngIf="userName.pending">
+          Validating username...
+      </div>
+
+			<div *ngIf="userName.invalid && userName.touched" class="alert alert-danger">
+				<div *ngIf="userName.errors.required">User name is required.</div>
+        <div *ngIf="userName.errors.minlength">Username should be at least 4 characters.</div>
+        <div *ngIf="userName.errors.cannotContainSpace">Username cannot contain space.</div>
+        <div *ngIf="userName.errors.userNameTaken">Username already taken.</div>
+			</div>
+		</div>
+
+</form>
